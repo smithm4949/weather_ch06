@@ -41,18 +41,43 @@ function updateDisplay(weatherArray) {
       humidityEl.innerText = `${humidity} %`;
     }
 
-    let card = document.createElement("div");
-    card.setAttribute("class", "col");
-    card.innerText = `${date}, ${temp} °F ${humidity} % ${wind} MPH`;
-    multiDayWrapper.appendChild(card); 
+    makeCard({date, temp, humidity, wind});
+    
   }
+}
+
+function makeCard(weather) {
+  let card = document.createElement("div");
+  card.setAttribute("class", "col card");
+  let body = document.createElement("div");
+  body.setAttribute("class", "card-body");
+  card.appendChild(body);
+  let title = document.createElement("div");
+  title.innerHTML = weather.date;
+  title.setAttribute("class", "card-title");
+  body.appendChild(title);
+  let temp = document.createElement("div");
+  temp.setAttribute("class", "card-text");
+  temp.innerHTML = `${weather.temp} °F`
+  let humidity = document.createElement("div");
+  humidity.setAttribute("class", "card-text");
+  humidity.innerHTML = `${weather.humidity} %`
+  let wind = document.createElement("div");
+  wind.setAttribute("class", "card-text");
+  wind.innerHTML = `${weather.wind} MPH`
+
+  body.appendChild(temp);
+  body.appendChild(humidity);
+  body.appendChild(wind);
+
+  multiDayWrapper.appendChild(card); 
 }
 
 function handleSearchClick() {
   searchAndGetWeather(searchInput.value)
 
   let recentButton = document.createElement("button");
-  recentButton.setAttribute("class", "row");
+  recentButton.setAttribute("class", "btn btn-secondary");
   recentButton.innerHTML = searchInput.value;
   buttonList.appendChild(recentButton);
 }
